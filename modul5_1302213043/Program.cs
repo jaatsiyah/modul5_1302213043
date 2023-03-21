@@ -1,30 +1,41 @@
-﻿using System.Net.NetworkInformation;
-using System.Reflection.Metadata.Ecma335;
-
-public class Penjumlahan
+﻿public class SimpleDataBase<T>
 {
-    public static T JumlahTigaAngka<T>(T num1,T num2,T num3)
+    private List<T> storedData;
+
+    private List<DateTime> inputDates;
+
+    public SimpleDataBase()
     {
-        dynamic sum = num1;
-        dynamic sum2 = num2;
-        dynamic sum3 = num3;
+        inputDates= new List<DateTime>();   
+        storedData = new List<T>();
+    }
 
-        return (sum + sum2 + sum3) ;
+    public void AddNewdata(T storedData)
+    {
+        this.storedData.Add(storedData);
+        inputDates.Add(DateTime.Now);
+    }
 
-        
+    public void PrintAllaData()
+    {
+        for(int i = 0; i < storedData.Count; i++)
+        {
+            Console.WriteLine("Data " + (i+1) + " berisi : " + storedData[i] + 
+                ", yang disimpan pada waktu UTC: " + inputDates[i].ToString());
+        }
     }
 }
 
-public class program
+public class Program
 {
     static void Main(string[] args)
     {
-        Penjumlahan penjumlahan= new Penjumlahan();
-        double num1 = 13;
-        double num2 = 22;
-        double num3 = 13;
 
-        Penjumlahan.JumlahTigaAngka(num1,num2,num3);
+        SimpleDataBase<int> storedData = new SimpleDataBase<int>();
+        storedData.AddNewdata(12);
+        storedData.AddNewdata(34);
+        storedData.AddNewdata(56);
 
+        storedData.PrintAllaData();
     }
 }
